@@ -1,0 +1,46 @@
+{
+  "name": "nextjs-simple-blog-template",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "format": "prettier --write --ignore-path .gitignore './**/*.{js,jsx,ts,tsx,json,css}'",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui"
+  },
+  "prettier": {
+    "trailingComma": "all",
+    "tabWidth": 2,
+    "semi": true,
+    "singleQuote": true,
+    "jsxSingleQuote": false,
+    "printWidth": 100
+  },
+  "engines": {
+    "node": ">=24.x"
+  },
+  "dependencies": {
+    "@types/node": "^24.1.0",
+    "@types/react": "^19.2.10",
+    "@types/react-dom": "^19.2.3",
+    "cheerio": "^1.0.0-rc.12",
+    "date-fns-tz": "^3.2.0",
+    "encoding": "^0.1.13",
+    "eslint": "^9.23.0",
+    "eslint-config-next": "^15.5.18",
+    "eslint-config-prettier": "^10.1.1",
+    "highlight.js": "^11.7.0",
+    "microcms-js-sdk": "^3.4.0",
+    "next": "^15.5.18",
+    "prettier": "^3.5.3",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "typescript": "^5.8.2"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.54.2"
+  }
+}
