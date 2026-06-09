@@ -7,6 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "clean": "rm -rf .next",
+    "clean:fetch-cache": "rm -rf .next/cache/fetch-cache",
     "format": "prettier --write --ignore-path .gitignore './**/*.{js,jsx,ts,tsx,json,css}'",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
