@@ -1,8 +1,10 @@
 import { Metadata } from 'next';
-import { getList, getTag } from '@/libs/microcms';
+import { getList, getTag, getAllTagIds } from '@/libs/microcms';
 import { LIMIT } from '@/constants';
 import Pagination from '@/components/Pagination';
 import ArticleList from '@/components/ArticleList';
+
+export const dynamicParams = false;
 
 type Props = {
   params: Promise<{
@@ -10,6 +12,11 @@ type Props = {
     name: string;
   }>;
 };
+
+export async function generateStaticParams() {
+  const tagIds = await getAllTagIds();
+  return tagIds.map((tagId) => ({ tagId }));
+}
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
   const params = await props.params;

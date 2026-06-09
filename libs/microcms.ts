@@ -95,3 +95,48 @@ export const getTag = async (contentId: string, queries?: MicroCMSQueries) => {
 
   return detailData;
 };
+
+// 全ブログ記事の contentId を取得（generateStaticParams 用）
+export const getAllBlogIds = async (): Promise<string[]> => {
+  const PAGE = 100;
+  const ids: string[] = [];
+  let offset = 0;
+  while (true) {
+    const { contents, totalCount } = await client.getList<Blog>({
+      endpoint: 'blog',
+      queries: { limit: PAGE, offset, fields: ['id'] },
+    });
+    ids.push(...contents.map((c) => c.id));
+    if (ids.length >= totalCount) break;
+    offset += PAGE;
+  }
+  return ids;
+};
+
+// 全タグの contentId を取得（generateStaticParams 用）
+export const getAllTagIds = async (): Promise<string[]> => {
+  const PAGE = 100;
+  const ids: string[] = [];
+  let offset = 0;
+  while (true) {
+    const { contents, totalCount } = await client.getList<Tag>({
+      endpoint: 'tags',
+      queries: { limit: PAGE, offset, fields: ['id'] },
+    });
+    ids.push(...contents.map((c) => c.id));
+    if (ids.length >= totalCount) break;
+    offset += PAGE;
+  }
+  return ids;
+};
+
+// ブログ記事の総件数を取得（ページネーション計算用）
+export const getBlogTotalCount = async (filters?: string): Promise<number> => {
+  const queries: MicroCMSQueries = { limit: 1, fields: ['id'] };
+  if (filters) queries.filters = filters;
+  const { totalCount } = await client.getList<Blog>({
+    endpoint: 'blog',
+    queries,
+  });
+  return totalCount;
+};
