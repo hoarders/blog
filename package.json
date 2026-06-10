@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "tsc": "tsc --noEmit",
     "format": "prettier --write --ignore-path .gitignore './**/*.{js,jsx,ts,tsx,json,css}'",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui"
@@ -23,8 +24,7 @@
     "node": ">=24.x"
   },
   "dependencies": {
-    "@types/node": "^24.1.0",
-    "@types/react": "^19.2.10",
+    "@types/node": "^24.1.0","@types/react": "^19.2.10",
     "@types/react-dom": "^19.2.3",
     "cheerio": "^1.0.0-rc.12",
     "date-fns-tz": "^3.2.0",

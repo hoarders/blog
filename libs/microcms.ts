@@ -9,26 +9,26 @@ import { notFound } from 'next/navigation';
 
 // タグの型定義
 export type Tag = {
-  name: string;
+  name?: string;
 } & MicroCMSContentId &
   MicroCMSDate;
 
 // ライターの型定義
 export type Writer = {
-  name: string;
-  profile: string;
+  name?: string;
+  profile?: string;
   image?: MicroCMSImage;
 } & MicroCMSContentId &
   MicroCMSDate;
 
 // ブログの型定義
 export type Blog = {
-  title: string;
-  description: string;
-  content: string;
+  title?: string;
+  description?: string;
+  content?: string;
   thumbnail?: MicroCMSImage;
-  tags?: Tag[];
-  writer?: Writer;
+  tags: Tag[];
+  writer: Writer | null;
 };
 
 export type Article = Blog & MicroCMSContentId & MicroCMSDate;
