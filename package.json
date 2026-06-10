@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "tsc": "tsc --noEmit",
     "clean": "rm -rf .next",
     "clean:fetch-cache": "rm -rf .next/cache/fetch-cache",
     "format": "prettier --write --ignore-path .gitignore './**/*.{js,jsx,ts,tsx,json,css}'",
@@ -28,8 +29,7 @@
   },
   "packageManager": "pnpm@10.32.1",
   "dependencies": {
-    "@types/node": "^24.1.0",
-    "@types/react": "^19.2.10",
+    "@types/node": "^24.1.0","@types/react": "^19.2.10",
     "@types/react-dom": "^19.2.3",
     "cheerio": "^1.0.0-rc.12",
     "date-fns-tz": "^3.2.0",
