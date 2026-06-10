@@ -2,7 +2,7 @@ import styles from './index.module.css';
 import { Writer } from '@/libs/microcms';
 
 type Props = {
-  writer?: Writer;
+  writer?: Writer | null;
 };
 
 export default function Profile({ writer }: Props) {
