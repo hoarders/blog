@@ -1,14 +1,15 @@
 'use client';
 
-import { useCallback, useRef, useState } from 'react';
+import { Suspense, useCallback, useRef, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import styles from './index.module.css';
 
-export default function SearchField() {
+type ViewProps = { defaultQuery: string };
+
+function SearchFieldView({ defaultQuery }: ViewProps) {
   const [composing, setComposition] = useState(false);
-  const startComposition = () => setComposition(true);
-  const endComposition = () => setComposition(false);
-  const _onEnter: React.KeyboardEventHandler<HTMLInputElement> = useCallback(
+  const inputRef = useRef<HTMLInputElement>(null);
+  const onKeyDown: React.KeyboardEventHandler<HTMLInputElement> = useCallback(
     (e) => {
       if (e.code === 'Enter' && !composing) {
         location.href = `/search?q=${inputRef.current?.value}`;
@@ -16,9 +17,6 @@ export default function SearchField() {
     },
     [composing],
   );
-  const inputRef = useRef<HTMLInputElement>(null);
-  const searchParams = useSearchParams();
-  const defaultQuery = searchParams.get('q') || '';
   return (
     <input
       type="search"
@@ -26,10 +24,23 @@ export default function SearchField() {
       ref={inputRef}
       className={styles.search}
       placeholder="Search..."
-      onKeyDown={_onEnter}
-      onCompositionStart={startComposition}
-      onCompositionEnd={endComposition}
+      onKeyDown={onKeyDown}
+      onCompositionStart={() => setComposition(true)}
+      onCompositionEnd={() => setComposition(false)}
       defaultValue={defaultQuery}
     />
+  );
+}
+
+function SearchFieldWithQuery() {
+  const q = useSearchParams().get('q') ?? '';
+  return <SearchFieldView defaultQuery={q} />;
+}
+
+export default function SearchField() {
+  return (
+    <Suspense fallback={<SearchFieldView defaultQuery="" />}>
+      <SearchFieldWithQuery />
+    </Suspense>
   );
 }

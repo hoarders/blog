@@ -1,8 +1,10 @@
 import { Metadata } from 'next';
-import { getList, getTag } from '@/libs/microcms';
+import { getList, getTag, getAllTagIds, getBlogTotalCount } from '@/libs/microcms';
 import { LIMIT } from '@/constants';
 import Pagination from '@/components/Pagination';
 import ArticleList from '@/components/ArticleList';
+
+export const dynamicParams = false;
 
 type Props = {
   params: Promise<{
@@ -11,6 +13,19 @@ type Props = {
     name: string;
   }>;
 };
+
+export async function generateStaticParams() {
+  const tagIds = await getAllTagIds();
+  const params: { tagId: string; current: string }[] = [];
+  for (const tagId of tagIds) {
+    const total = await getBlogTotalCount(`tags[contains]${tagId}`);
+    const maxPage = Math.ceil(total / LIMIT);
+    for (let p = 2; p <= maxPage; p++) {
+      params.push({ tagId, current: String(p) });
+    }
+  }
+  return params;
+}
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
   const params = await props.params;
