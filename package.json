@@ -48,7 +48,7 @@
   "devDependencies": {
     "@opennextjs/cloudflare": "^1.19.11",
     "@playwright/test": "^1.54.2",
-    "wrangler": "^4.0.0"
+    "wrangler": "^4.100.0"
   },
   "pnpm": {
     "onlyBuiltDependencies": [
